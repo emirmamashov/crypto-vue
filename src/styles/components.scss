@@ -1,0 +1,354 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.crypto-card {
+  @include glass-effect;
+  padding: 1.5rem;
+  @include card-hover;
+  
+  .crypto-header {
+    @include flex-between;
+    margin-bottom: 1rem;
+    
+    .crypto-info {
+      @include flex-center;
+      gap: 0.75rem;
+      
+      .crypto-icon {
+        @include flex-center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: $gradient-secondary;
+        color: $text-white;
+        font-weight: bold;
+        font-size: 1.25rem;
+      }
+      
+      .crypto-details {
+        h3 {
+          color: $text-white;
+          font-weight: 600;
+          margin: 0;
+        }
+        
+        p {
+          color: $text-purple-muted;
+          font-size: 0.875rem;
+          margin: 0;
+        }
+      }
+    }
+    
+    .crypto-price {
+      text-align: right;
+      
+      .current-price {
+        color: $text-white;
+        font-weight: bold;
+        font-size: 1.125rem;
+        margin: 0;
+      }
+      
+      .price-change {
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin: 0;
+        
+        &.positive {
+          color: $success-green;
+        }
+        
+        &.negative {
+          color: $error-red;
+        }
+      }
+    }
+  }
+  
+  .crypto-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    
+    .stat-row {
+      @include flex-between;
+      
+      .stat-label {
+        color: $text-purple-muted;
+      }
+      
+      .stat-value {
+        color: $text-white;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.crypto-table {
+  @include glass-effect;
+  border-radius: $border-radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-xl;
+  
+  .table-container {
+    overflow-x: auto;
+    @include hide-scrollbar;
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      
+      thead {
+        background: rgba(0, 0, 0, 0.3);
+        
+        th {
+          padding: 1rem;
+          color: $text-purple-muted;
+          font-weight: 600;
+          text-align: left;
+          
+          &.sortable {
+            cursor: pointer;
+            transition: color $transition-fast;
+            
+            &:hover {
+              color: $text-white;
+            }
+            
+            .sort-content {
+              @include flex-between;
+              
+              .sort-arrow {
+                margin-left: 0.25rem;
+              }
+            }
+          }
+        }
+      }
+      
+      tbody {
+        tr {
+          border-bottom: 1px solid rgba($primary-purple, 0.1);
+          transition: background-color $transition-fast;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.05);
+          }
+          
+          &:last-child {
+            border-bottom: none;
+          }
+          
+          td {
+            padding: 1rem;
+            
+            .crypto-cell {
+              @include flex-center;
+              gap: 0.75rem;
+              
+              .crypto-icon {
+                @include flex-center;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                background: $gradient-secondary;
+                color: $text-white;
+                font-weight: bold;
+                font-size: 0.875rem;
+              }
+              
+              .crypto-details {
+                h4 {
+                  color: $text-white;
+                  font-weight: 600;
+                  margin: 0;
+                }
+                
+                p {
+                  color: $text-purple-muted;
+                  font-size: 0.75rem;
+                  margin: 0;
+                }
+              }
+            }
+            
+            .price-change-cell {
+              @include flex-center;
+              gap: 0.25rem;
+              font-weight: 600;
+              
+              &.positive {
+                color: $success-green;
+              }
+              
+              &.negative {
+                color: $error-red;
+              }
+              
+              .change-icon {
+                width: 1rem;
+                height: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  @include gradient-button;
+  display: flex;
+    align-items: center;
+    gap: 5px;
+  
+  &.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+  
+  &.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  &.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+}
+
+.input {
+  @include glass-effect;
+  border-radius: $border-radius-lg;
+  padding: 0.75rem 1rem;
+  color: $text-white;
+  border: none;
+  outline: none;
+  transition: all $transition-fast;
+  
+  &::placeholder {
+    color: $text-purple-muted;
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 2px rgba($primary-purple, 0.5);
+  }
+  
+  &.input-search {
+    padding-left: 2.5rem;
+    
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-purple-muted;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  
+  .stat-card {
+    @include glass-effect;
+    border-radius: $border-radius-xl;
+    padding: 1.5rem;
+    text-align: center;
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: $text-white;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: $text-purple-muted;
+      font-size: 0.875rem;
+    }
+    
+    &.positive .stat-value {
+      color: $success-green;
+    }
+    
+    &.negative .stat-value {
+      color: $error-red;
+    }
+  }
+}
+
+.loading-skeleton {
+  @include glass-effect;
+  border-radius: $border-radius-xl;
+  padding: 1.5rem;
+  
+  .skeleton-content {
+    @include flex-center;
+    gap: 1rem;
+    
+    .skeleton-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: rgba($text-purple-muted, 0.2);
+      @include pulse-animation;
+    }
+    
+    .skeleton-text {
+      flex: 1;
+      
+      .skeleton-line {
+        height: 1rem;
+        background: rgba($text-purple-muted, 0.2);
+        border-radius: $border-radius-sm;
+        margin-bottom: 0.5rem;
+        @include pulse-animation;
+        
+        &:last-child {
+          width: 60%;
+        }
+      }
+    }
+  }
+}
+
+.notification {
+  @include glass-effect;
+  border-radius: $border-radius-lg;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  
+  &.notification-error {
+    border-color: rgba($error-red, 0.5);
+    color: $error-red;
+  }
+  
+  &.notification-success {
+    border-color: rgba($success-green, 0.5);
+    color: $success-green;
+  }
+  
+  .notification-content {
+    @include flex-center;
+    gap: 0.5rem;
+    
+    .notification-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}

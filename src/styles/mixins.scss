@@ -1,0 +1,116 @@
+@use './variables' as *;
+
+@mixin glass-effect {
+  background: $glass-bg;
+  backdrop-filter: $glass-blur;
+  border: 1px solid $glass-border;
+}
+
+@mixin gradient-text($gradient: $gradient-primary) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: 80rem; // 1280px
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: $breakpoint-sm) {
+    padding: 0 1.5rem;
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    padding: 0 2rem;
+  }
+}
+
+@mixin card-hover {
+  transition: all $transition-normal cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-xl;
+  }
+}
+
+@mixin gradient-button($gradient: $gradient-primary) {
+  background: $gradient;
+  color: $text-white;
+  border: none;
+  border-radius: $border-radius-lg;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-normal;
+  box-shadow: $shadow-md;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $shadow-lg;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+@mixin pulse-animation($duration: 3s) {
+  animation: pulse $duration cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@mixin spin-animation($duration: 3s) {
+  animation: spin $duration linear infinite;
+}
+
+@mixin responsive-text($min-size: 1rem, $max-size: 1.5rem) {
+  font-size: clamp($min-size, 4vw, $max-size);
+}
+
+@mixin hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin text-truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@mixin responsive-grid($min-width: 300px, $gap: 1.5rem) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
+}
